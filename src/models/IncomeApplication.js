@@ -56,7 +56,11 @@ const incomeApplicationSchema = new mongoose.Schema({
   photo: { type: fileSchema, required: [true, 'Photo is required'] },
   idProof: { type: fileSchema, required: [true, 'ID proof is required'] },
   addressProof: { type: fileSchema, required: [true, 'Address proof is required'] },
-  incomeProof: { type: fileSchema, required: [true, 'Income proof is required'] }
+  incomeProof: { type: fileSchema, required: [true, 'Income proof is required'] },
+  isPaymentVerifyed: {
+    type: Boolean,
+    default: false
+  }
 }, { timestamps: true });
 
 incomeApplicationSchema.index({ applicationDate: -1 });

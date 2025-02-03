@@ -11,6 +11,10 @@ export async function POST(req) {
     // Store form data temporarily and get ID
     const tempDataId = storeTempData(body);
     
+    // const data = getTempData(tempDataId);
+    // console.log(data);
+    
+    
     // Create a payment session with customer details for Indian export compliance
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -29,7 +33,7 @@ export async function POST(req) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?status=success&session_id={CHECKOUT_SESSION_ID}&temp_id=${tempDataId}`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?status=success&session_id={CHECKOUT_SESSION_ID}&email_id=${body.email}&collName=incomeApplication`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/income-form?status=cancelled`,
       billing_address_collection: 'required', // Require billing address
       customer_creation: 'always', // Create a customer for each transaction
@@ -55,7 +59,8 @@ export async function POST(req) {
     return NextResponse.json({ 
       success: true, 
       sessionId: session.id,
-      url: session.url 
+      url: session.url,
+      body:body
     });
   } catch (error) {
     console.error('Payment session creation error:', error);

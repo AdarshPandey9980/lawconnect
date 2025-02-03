@@ -40,31 +40,7 @@ const DocumentServices = () => {
     if (itemName === 'Gazette') {
       router.push('/employee_gazette');
     }
-    if (itemName === 'Shop License/Gumasta') {
-      router.push('/shoplicenseform');
-    }
-    if (itemName === 'Food License') {
-      router.push('/foodform');
-    }
-    if (itemName === 'GST Registration') {
-      router.push('/gstform');
-    }
-    
-    if (itemName === 'Income Tax Filing') {
-      router.push('/incometaxform');
-    }
-    if (itemName === 'Affidavit') {
-      router.push('/affidavitform');
-    }
-    if (itemName === 'E-Leave and License') {
-      router.push('/leaveform');
-    }
-    if (itemName === 'Udyog Aadhar') {
-      router.push('/udyogform');
-    }
-    if (itemName === 'Company Registration') {
-      router.push('/companyform');
-    }
+   
    
   };
 

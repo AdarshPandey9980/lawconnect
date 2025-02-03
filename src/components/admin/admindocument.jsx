@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { ChevronRight, FileText, Search, Bell, Settings, FolderOpen, Menu, X } from 'lucide-react';
+import { ChevronRight, FileText, Search, Bell, LogOut, FolderOpen, Menu, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function DocumentServices() {
@@ -36,8 +36,8 @@ export default function DocumentServices() {
       router.push('/admindocument');
     } else if (section === 'dashboard') {
       router.push('/admin');
-    } else if (section === 'settings') {
-      router.push('/settings');
+    } else if (section === 'logout') {
+      router.push('/admindashboard');
     }
     setActiveSection(section);
     setIsSidebarOpen(false);
@@ -181,10 +181,10 @@ export default function DocumentServices() {
             onClick={() => handleNavigation('documents')} 
           />
           <SidebarItem 
-            icon={Settings} 
-            label="Settings" 
-            active={activeSection === 'settings'}
-            onClick={() => handleNavigation('settings')} 
+            icon={LogOut} 
+            label="Logout" 
+            active={activeSection === 'logout'}
+            onClick={() => handleNavigation('logout')} 
           />
         </nav>
       </div>

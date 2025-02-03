@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Check, AlertCircle, Upload } from 'lucide-react';
+import axios from 'axios';
 // Replace this code block at the top of your IncomeForm file
 
 const CustomAlert = ({ children, variant = 'default', className = '' }) => {
@@ -81,7 +82,7 @@ const IncomeForm = () => {
       idProof: null,
       addressProof: null,
       incomeProof: null
-    }
+    },
   });
 
   const [fileUrls, setFileUrls] = useState({
@@ -208,22 +209,30 @@ const IncomeForm = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/create-payment-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
+        const response = await fetch('/api/create-payment-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+        const data = await response.json();
+        console.log(data);
+        
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to submit data. Please try again.');
+        }
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Payment session creation failed');
-      }
-
-      // Redirect to Stripe payment page
-      window.location.href = data.url;
+        // window.location.href = data.url;
+        if (data.success === true) {
+          const res = await axios.post('/api/submit-income-certificate', formData, {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+          console.log(res);
+        }
+        window.location.href = data.url;
     } catch (error) {
       setStatus({
         type: 'error',

@@ -2,6 +2,7 @@
 import connectDB from '@/lib/mongodb';
 import IncomeApplication from '@/models/IncomeApplication';
 import { NextResponse } from 'next/server';
+import {getTempData} from "@/lib/tempStorage"
 
 // Validation helper functions
 const isValidEmail = (email) => {
@@ -83,6 +84,9 @@ export async function POST(req) {
 
     // Parse the JSON body
     const body = await req.json();
+    // const allData = getTempData(body.temp_id)
+    // console.log(allData);
+    
 
     // Validate required fields
     const fieldValidations = {
@@ -156,7 +160,7 @@ export async function POST(req) {
       success: true,
       message: 'Application submitted successfully',
       applicationId: application._id,
-      applicationDate: application.applicationDate
+      applicationDate: application.applicationDate,
     });
 
   } catch (error) {

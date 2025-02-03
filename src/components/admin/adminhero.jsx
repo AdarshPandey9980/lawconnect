@@ -1,11 +1,10 @@
 "use client";
-import React, { useState, useEffect,isCollapsed } from 'react';
-import { Bell, FileText, Search, Settings, FolderOpen, Users, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Bell, FileText, Search, FolderOpen, Users, Menu, X, LogOut } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { useRouter } from 'next/navigation';
 
 export default function AdminDashboard() {
-  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('dashboard');
   const [stats, setStats] = useState({
@@ -166,8 +165,8 @@ export default function AdminDashboard() {
       router.push('/admindocument');
     } else if (section === 'dashboard') {
       router.push('/admin');
-    } else if (section === 'settings') {
-      router.push('/settings');
+    } else if (section === 'logout') {
+      router.push('/admindashboard');
     }
     setActiveSection(section);
     setIsSidebarOpen(false);
@@ -186,6 +185,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      {/* Sidebar */}
       <div className={`
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0
@@ -207,21 +207,18 @@ export default function AdminDashboard() {
             label="Dashboard" 
             active={activeSection === 'dashboard'}
             onClick={() => handleNavigation('dashboard')}
-            isCollapsed={false}
           />
           <SidebarItem 
             icon={FolderOpen} 
             label="Documents" 
             active={activeSection === 'documents'}
             onClick={() => handleNavigation('documents')}
-            isCollapsed={isCollapsed && !isSidebarOpen}
           />
           <SidebarItem 
-            icon={Settings} 
-            label="Settings" 
-            active={activeSection === 'settings'}
-            onClick={() => handleNavigation('settings')}
-            isCollapsed={isCollapsed && !isSidebarOpen}
+            icon={LogOut} 
+            label="Logout" 
+            active={activeSection === 'logout'}
+            onClick={() => handleNavigation('logout')}
           />
         </nav>
       </div>
@@ -249,6 +246,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* Dashboard Content */}
         <div className="p-4 md:p-8">
           <div className="mb-8">
             <StatCard icon={Users} label="Total Users" value={stats.users.total} />
