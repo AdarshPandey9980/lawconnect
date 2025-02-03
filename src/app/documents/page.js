@@ -1,6 +1,6 @@
-import DocumentOrderingSystem from "@/components/document"; 
-import  Navbar from "@/components/navbar";
+import DocumentOrderingSystem from "@/components/document";
 import Footer from "@/components/footer";
+import Navbar from "@/components/Navbar";
 export default function Documents() {
     return (
         <> 

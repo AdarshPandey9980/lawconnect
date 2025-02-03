@@ -1,12 +1,13 @@
+// app/lawyer-success/page.js
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import axios from 'axios';
 import { Scale, CheckCircle2, XCircle, Loader } from 'lucide-react';
 
-const PageComponent = () => {
+const LawyerSuccessContent = () => {
   const searchParams = useSearchParams();
-  const [verificationStatus, setVerificationStatus] = useState('loading'); // loading, success, error
+  const [verificationStatus, setVerificationStatus] = useState('loading');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleData = async () => {
@@ -34,7 +35,7 @@ const PageComponent = () => {
 
   useEffect(() => {
     handleData();
-  }, []);
+  }, [searchParams]); // Added searchParams as dependency
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex items-center justify-center p-4">
@@ -142,4 +143,11 @@ const PageComponent = () => {
   );
 };
 
-export default PageComponent;
+// Wrap the content in Suspense
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LawyerSuccessContent />
+    </Suspense>
+  );
+}

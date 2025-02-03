@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ const InputField = ({ icon: Icon, ...props }) => (
   </div>
 );
 
-const LoginPage = () => {
+const LoginContent = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -257,4 +257,11 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+// Wrap the main content in Suspense
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}

@@ -1,10 +1,10 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import axios from 'axios';
 import { CheckCircle, XCircle, Loader } from 'lucide-react';
 
-const PageComponent = () => {
+const VerificationContent = () => {
   const searchParams = useSearchParams();
   const [verificationStatus, setVerificationStatus] = useState('loading'); // loading, success, error
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,7 +34,7 @@ const PageComponent = () => {
 
   useEffect(() => {
     handleData();
-  }, []);
+  }, [searchParams]); // Added searchParams as dependency
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -107,4 +107,17 @@ const PageComponent = () => {
   );
 };
 
-export default PageComponent;
+// Wrap the main content in Suspense
+export default function PageComponent() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="flex justify-center">
+          <Loader className="w-16 h-16 text-blue-500 animate-spin" />
+        </div>
+      </div>
+    }>
+      <VerificationContent />
+    </Suspense>
+  );
+}

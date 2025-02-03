@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
 import FoodLicense from "@/components/forms/foodform";
 export default function  FoodLicenseForm() {
     return (

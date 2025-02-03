@@ -1,6 +1,5 @@
 import Chat from "@/components/chatbot";
-import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
 export default function ChatInterface() {
     return (
         <> 
