@@ -8,6 +8,14 @@ import { useState } from 'react'
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
+  const navLinks = [
+    { href: "/documents", text: "Documents" },
+    { href: "/chatbot", text: "AI assistant" },
+    { href: "/documentgeneration", text: "DocumentGeneration" },
+    { href: "/lawyerpage", text: "LawyerServices" },
+    { href: "/section", text: "CA compliance" }
+  ]
+
   return (
     <motion.header 
       className="bg-white bg-opacity-90 backdrop-blur-md shadow-lg sticky top-0 z-50"
@@ -24,25 +32,32 @@ export default function Navbar() {
           </svg>
           <span className="font-poppins">LawConnect</span>
         </Link>
+
         <nav className="hidden md:flex items-center space-x-8">
-          
-            <Link href="/documents" className="text-gray-700 hover:text-indigo-600 transition-colors">Documents</Link>
-            <Link href="/chatbot" className="text-gray-700 hover:text-indigo-600 transition-colors">AI assistant</Link>
-            <Link href="/documentgeneration" className="text-gray-700 hover:text-indigo-600 transition-colors">DocumentGeneration</Link>
-            <Link href="/lawyerpage" className="text-gray-700 hover:text-indigo-600 transition-colors">LawyerServices</Link>
-            <Link href="/section" className='text-gray-700 hover:text-indigo-600 transition-colors'>CA compliance</Link>
-          <div className="hidden md:flex items-center space-x-4 ml-auto">
-          <Link href="/"
-          className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-md hover:opacity-90 transition-all duration-300"
+          {navLinks.map((link) => (
+            <Link 
+              key={link.href}
+              href={link.href} 
+              className="text-gray-700 hover:text-indigo-600 transition-colors"
             >
-           Logout
-          </Link>
-        </div>
+              {link.text}
+            </Link>
+          ))}
+          <div className="hidden md:flex items-center space-x-4 ml-auto">
+            <Link 
+              href="/"
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-md hover:opacity-90 transition-all duration-300"
+            >
+              Logout
+            </Link>
+          </div>
         </nav>
+
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X className="text-indigo-600" /> : <Menu className="text-indigo-600" />}
         </button>
       </div>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -53,20 +68,21 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <nav className="flex flex-col items-center py-4 space-y-4">
-              
-              <Link href="/documents" className="text-gray-700 hover:text-indigo-600 transition-colors">Documents</Link>
-              <Link href="/chatbot" className="text-gray-700 hover:text-indigo-600 transition-colors">AI assistant</Link>
-              <Link href="/documentgeneration" className="text-gray-700 hover:text-indigo-600 transition-colors">DocumentGeneration</Link>
-              <Link href="/lawyerpage" className="text-gray-700 hover:text-indigo-600 transition-colors">LawyerServices</Link>
-              <Link href="/section" className='text-gray-700 hover:text-indigo-600 transition-colors'>CA compliance</Link>
-              <button 
-                className="w-full max-w-xs bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-300"
-                onClick={() => setIsOpen(false)}
-              > 
-              <Link href="/">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.href}
+                  href={link.href} 
+                  className="text-gray-700 hover:text-indigo-600 transition-colors"
+                >
+                  {link.text}
+                </Link>
+              ))}
+              <Link 
+                href="/"
+                className="w-full max-w-xs bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 text-center"
+              >
                 Logout
               </Link>
-              </button>
             </nav>
           </motion.div>
         )}
@@ -74,4 +90,3 @@ export default function Navbar() {
     </motion.header>
   )
 }
-
